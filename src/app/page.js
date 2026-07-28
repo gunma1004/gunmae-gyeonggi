@@ -1,36 +1,93 @@
 "use client";
-import { useState } from 'react';
 
-const gyeonggiDistricts = {
-  suwon: { name: '수원시' },
-  seongnam: { name: '성남시' },
-  goyang: { name: '고양시' },
-  yongin: { name: '용인시' },
-  bucheon: { name: '부천시' },
-  ansan: { name: '안산시' },
-  namyangju: { name: '남양주시' },
-  hwaseong: { name: '화성시' },
-  pyeongtaek: { name: '평택시' },
-  uijeongbu: { name: '의정부시' },
-  paju: { name: '파주시' },
-  gimpo: { name: '김포시' }
-};
+export default function GyeonggiGummaPage() {
+  // 5개 제휴 업체 데이터
+  const shops = [
+    {
+      id: 1,
+      name: "한국미인홈케어",
+      location: "경기 전지역",
+      desc: "24시 정성 가득한 타이 & 아로마 전문 케어",
+      phone: "0507-1280-3324",
+      badge: "추천업체",
+      courses: [
+        { name: "아로디시 관리 (60분)", price: "90,000원" },
+        { name: "스웨디시 케어 (60분)", price: "140,000원" },
+      ]
+    },
+    {
+      id: 2,
+      name: "기쁨홈타이",
+      location: "경기 전지역",
+      desc: "지친 일상에 편안한 휴식을 선사하는 프리미엄 힐링샵",
+      phone: "0507-1280-3325",
+      badge: "인기폭발",
+      courses: [
+        { name: "건식 코스 (60분)", price: "60,000원" },
+        { name: "스웨디시 (60분)", price: "140,000원" },
+      ]
+    },
+    {
+      id: 3,
+      name: "어린마인드홈타이",
+      location: "경기 전지역",
+      desc: "빠른 방문과 철저한 위생 관리를 약속드립니다",
+      phone: "0507-1280-3326",
+      badge: "24시상시",
+      courses: [
+        { name: "타이/아로마 (60분)", price: "60,000원" },
+        { name: "한국 스웨디시케어 (60분)", price: "140,000원" },
+      ]
+    },
+    {
+      id: 4,
+      name: "미인클럽홈타이",
+      location: "경기 전지역",
+      desc: "베테랑 관리사의 맞춤형 피로 회복 케어 프로그램",
+      phone: "0507-1280-3327",
+      badge: "신규제휴",
+      courses: [
+        { name: "타이코스 (60분)", price: "60,000원" },
+        { name: "한국스웨디시 (90분)", price: "140,000원" },
+      ]
+    },
+    {
+      id: 5,
+      name: "퀸즈 홈테라피",
+      location: "경기 전지역",
+      desc: "후불제 안심 이용, 부천 전지역 25분 내 빠른 도착",
+      phone: "0507-1280-3328",
+      badge: "만족도1위",
+      courses: [
+        { name: "타이 코스 (60분)", price: "60,000원" },
+        { name: "스웨디시 코스 (60분)", price: "140,000원" },
+      ]
+    }
+  ];
 
-export default function GyeonggiMainPage() {
+  // 경기도 주요 시/군 데이터 (SEO 및 링크 형성용)
+  const gyeonggiDistricts = {
+    suwon: { name: '수원시' },
+    seongnam: { name: '성남시' },
+    goyang: { name: '고양시' },
+    yongin: { name: '용인시' },
+    bucheon: { name: '부천시' },
+    ansan: { name: '안산시' },
+    namyangju: { name: '남양주시' },
+    hwaseong: { name: '화성시' },
+    pyeongtaek: { name: '평택시' },
+    uijeongbu: { name: '의정부시' },
+    paju: { name: '파주시' },
+    gimpo: { name: '김포시' }
+  };
+
   const jsonLdData = [
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "경기도출장마사지 | 경기건마사랑",
-      "url": "https://gunma-gyeonggi.com/",
-      "description": "경기도출장마사지 전문 경기건마사랑. 수원, 성남, 고양, 용인 등 24시간 방문 후불제 출장마사지."
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "name": "경기도출장마사지 경기건마사랑",
-      "serviceType": "출장마사지 홈타이 상담",
-      "areaServed": ["경기도", "경기도 전지역"]
+      "name": "경기건마사랑 | 경기도출장마사지",
+      "url": "https://gunmae-gyeonggi.netlify.app/",
+      "description": "경기건마사랑 경기도출장마사지 추천. 수원, 성남, 고양, 용인 등 24시간 방문 후불제 출장마사지."
     }
   ];
 
@@ -39,13 +96,14 @@ export default function GyeonggiMainPage() {
   };
 
   return (
-    <div className="text-gray-200 min-h-screen flex flex-col pb-24 md:pb-0 bg-[#0c0c0c]">
+    <div className="bg-[#0c0c0c] text-gray-200 min-h-screen pb-20 flex flex-col">
+      {/* ⭐️ SEO 전용 JSON-LD 구조화 데이터 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
       />
 
-      {/* 로봇 수집 전용 클로킹 노드 */}
+      {/* ⭐️ 네이버 로봇 전용 숨김 링크 영역 (클로킹/SEO 최적화) */}
       <div className="sr-only" aria-hidden="true">
         <ul>
           {Object.entries(gyeonggiDistricts).map(([key, data]) => (
@@ -58,27 +116,30 @@ export default function GyeonggiMainPage() {
         </ul>
       </div>
 
-      <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-500 to-amber-300">
-              경기건마사랑
-            </span>
-            <span className="text-[9px] px-1.5 py-0.5 rounded border border-amber-500/30 text-amber-400 bg-amber-950/20 font-medium tracking-tight">
-              경기본점
-            </span>
+      {/* 헤더 영역 */}
+      <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-4">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
+          <a href="/" className="text-2xl font-bold text-amber-400 tracking-tight">
+            경기건마사랑
           </a>
+          <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            경기 전지역 24시
+          </span>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-12 w-full flex-1">
-        <section className="text-center my-8">
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            <span className="text-amber-400">경기도 전지역 24시</span><br />품격 있는 경기도출장마사지
+      {/* 메인 히어로 영역 */}
+      <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
+        <section className="text-center my-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+            <span className="text-amber-400">경기건마사랑</span> 제휴 업체 안내
           </h1>
-          <p className="text-gray-400 text-sm md:text-base mb-8">수원, 분당, 일산, 용인 등 경기도 전지역 25분 내 도착합니다.</p>
+          <p className="text-gray-400 text-sm mb-6">
+            엄선된 경기도 주요 지역 추천 업체의 코스 및 연락처를 확인하세요.
+          </p>
 
-          <div className="bg-[#1e1e1e]/85 backdrop-blur-md border border-white/10 p-4 md:p-5 rounded-2xl max-w-sm mx-auto">
+          {/* 동네 선택 셀렉트 박스 */}
+          <div className="bg-[#1e1e1e]/85 backdrop-blur-md border border-white/10 p-4 rounded-2xl max-w-sm mx-auto mb-8">
             <div className="text-left bg-white/5 p-3 rounded-xl border border-white/5">
               <label className="text-[10px] text-amber-400 font-bold block mb-1 uppercase">우리 동네 지역 선택하기</label>
               <select onChange={handleDistrictChange} className="bg-transparent text-sm text-white w-full outline-none cursor-pointer" defaultValue="">
@@ -89,6 +150,55 @@ export default function GyeonggiMainPage() {
               </select>
             </div>
           </div>
+        </section>
+
+        {/* 5개 업체 리스트 */}
+        <section className="space-y-6 mt-8">
+          {shops.map((shop) => (
+            <article
+              key={shop.id}
+              className="bg-[#141414] border border-white/10 rounded-2xl p-5 md:p-6 shadow-lg hover:border-amber-500/40 transition-all"
+            >
+              {/* 업체 상단 헤더 */}
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <span className="inline-block text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded mr-2">
+                    {shop.badge}
+                  </span>
+                  <h2 className="text-xl font-bold text-white inline-block">{shop.name}</h2>
+                  <p className="text-xs text-amber-400 mt-1">{shop.location}</p>
+                </div>
+              </div>
+
+              <p className="text-xs text-gray-400 mb-4">{shop.desc}</p>
+
+              {/* 대표 코스 요금 */}
+              <div className="bg-black/40 rounded-xl p-3 mb-4 space-y-1.5 border border-white/5">
+                {shop.courses.map((course, idx) => (
+                  <div key={idx} className="flex justify-between text-xs">
+                    <span className="text-gray-300">{course.name}</span>
+                    <span className="font-bold text-amber-400">{course.price}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* 전화하기 & 문자하기 버튼 세트 */}
+              <div className="grid grid-cols-2 gap-3">
+                <a
+                  href={`tel:${shop.phone}`}
+                  className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black font-bold py-3 rounded-xl text-xs transition-colors"
+                >
+                  📞 전화 문의하기
+                </a>
+                <a
+                  href={`sms:${shop.phone}?body=${encodeURIComponent(`${shop.name} 문의드립니다.`)}`}
+                  className="flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl text-xs border border-white/10 transition-colors"
+                >
+                  💬 문자 예약하기
+                </a>
+              </div>
+            </article>
+          ))}
         </section>
 
         {/* 하단 도시 태그 네비게이션 */}
@@ -104,8 +214,9 @@ export default function GyeonggiMainPage() {
         </section>
       </main>
 
-      <footer className="bg-[#080808] border-t border-white/5 py-12 text-center text-gray-500 text-xs mt-auto">
-        COPYRIGHT &copy; 경기건마사랑 ALL RIGHTS RESERVED.
+      {/* 푸터 */}
+      <footer className="bg-[#080808] border-t border-white/5 py-8 text-center text-gray-500 text-xs mt-auto">
+        <p>COPYRIGHT &copy; 경기건마사랑 ALL RIGHTS RESERVED.</p>
       </footer>
     </div>
   );
