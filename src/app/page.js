@@ -64,7 +64,7 @@ const shops = [
   }
 ];
 
-// ⭐️ 2. 경기도 시·군 및 행정구(區) 완벽 반영
+// ⭐️ 2. 경기도 시·군 및 행정구(區) 데이터
 const gyeonggiDistricts = {
   suwon: { name: '수원시', gus: ['장안구', '권선구', '팔달구', '영통구'] },
   seongnam: { name: '성남시', gus: ['수정구', '중원구', '분당구'] },
@@ -104,7 +104,7 @@ export default function GyeonggiMainPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
       />
 
-      {/* ⭐️ 네이버 로봇 전용 숨김 영역 (시/구 키워드 우회 수집) */}
+      {/* ⭐️ 네이버 로봇 전용 숨김 영역 (크롤링 보장) */}
       <div className="sr-only" aria-hidden="true">
         <ul>
           {Object.entries(gyeonggiDistricts).map(([key, data]) => (
@@ -212,9 +212,24 @@ export default function GyeonggiMainPage() {
           ))}
         </section>
 
-        {/* 하단 도시 태그 */}
+        {/* ⭐️ 메인 화면 하단: 경기도 주요 '구(區)' 전체 전면 노출 섹션 추가 */}
         <section className="bg-[#080808] py-8 border-t border-white/5 mt-12 rounded-2xl p-6">
-          <h3 className="text-sm font-bold text-gray-400 mb-4">경기도 주요 도시 출장마사지 바로가기</h3>
+          <h3 className="text-sm font-bold text-amber-400 mb-3">경기도 주요 행정구(區) 바로가기</h3>
+          <div className="flex flex-wrap gap-2 mb-8">
+            {Object.entries(gyeonggiDistricts).map(([key, data]) =>
+              data.gus.map((gu) => (
+                <a
+                  key={`${key}-${gu}`}
+                  href={`/${key}`}
+                  className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-300 rounded-lg border border-amber-500/20 font-bold hover:bg-amber-500/20 transition-all"
+                >
+                  경기도 {data.name} {gu}출장마사지
+                </a>
+              ))
+            )}
+          </div>
+
+          <h3 className="text-sm font-bold text-gray-400 mb-3">경기도 주요 도시 바로가기</h3>
           <div className="flex flex-wrap gap-3">
             {Object.entries(gyeonggiDistricts).map(([id, data]) => (
               <a key={id} href={`/${id}`} className="text-xs text-gray-400 hover:text-amber-500 transition-colors">
