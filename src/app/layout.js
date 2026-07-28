@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL("https://gunma-gyeonggi.com"), // ⭐️ 추후 구매할 경기도 전용 도메인 주소
+  metadataBase: new URL("https://gunmalove-gyeonggi.shop"), // ⭐️ 추후 구매할 경기도 전용 도메인 주소
   title: "경기건마사랑 | 24시 경기도출장마사지 No.1",
   description: "경기도 전지역 25분 내 방문! 수원, 성남, 고양, 용인 등 24시 홈타이, 스웨디시, 아로마 전문 서비스.",
   alternates: {

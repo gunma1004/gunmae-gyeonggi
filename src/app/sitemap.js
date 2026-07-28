@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://gunma-gyeonggi.com';
+  const baseUrl = 'https://gunmalove-gyeonggi.shop';
 
   const gyeonggiDistricts = [
     'suwon', 'seongnam', 'goyang', 'yongin', 'bucheon', 'ansan',
