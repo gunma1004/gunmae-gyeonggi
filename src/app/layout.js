@@ -9,7 +9,7 @@ export const metadata = {
   },
   verification: {
     other: {
-      'naver-site-verification': '네이버에서_발급받은_새_코드_입력',
+      'naver-site-verification': '7ddc82035572a78ce341bc1e4a6423ef5d952d4a',
     },
   },
   openGraph: {
