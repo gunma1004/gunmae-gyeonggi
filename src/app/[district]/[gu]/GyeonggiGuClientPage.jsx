@@ -1,4 +1,4 @@
-"use client";
+import { Metadata } from 'next';
 
 // 5개 제휴 업체 데이터
 const shops = [
@@ -64,7 +64,8 @@ const shops = [
   }
 ];
 
-const gyeonggiDistricts = {
+// ⭐️ 경기도 시/구 매핑 객체
+const gyeonggiDistricts: Record<string, { name: string; gus: Record<string, string> }> = {
   suwon: { name: '수원시', gus: { jangan: '장안구', gwonseon: '권선구', paldal: '팔달구', yeongtong: '영통구' } },
   seongnam: { name: '성남시', gus: { sujeong: '수정구', jungwon: '중원구', bundang: '분당구' } },
   goyang: { name: '고양시', gus: { deogyang: '덕양구', ilsandong: '일산동구', ilsanseo: '일산서구' } },
@@ -74,9 +75,32 @@ const gyeonggiDistricts = {
   anyang: { name: '안양시', gus: { manan: '만안구', dongan: '동안구' } }
 };
 
-export default function GyeonggiGuClientPage({ districtKey, guKey }) {
-  const districtInfo = gyeonggiDistricts[districtKey];
-  const guName = districtInfo?.gus?.[guKey];
+type Props = {
+  params: Promise<{ district: string; gu: string }>;
+};
+
+// ⭐️ 1. 검색엔진(SEO) 메타데이터 생성 함수 (여기서 한글 '수원시 권선구'로 만들어줍니다)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { district, gu } = await params;
+  const districtInfo = gyeonggiDistricts[district];
+  const cityName = districtInfo?.name || district;
+  const guName = districtInfo?.gus?.[gu] || gu;
+
+  return {
+    title: `경기도 ${cityName} ${guName} 출장마사지 24시 홈케어 추천 | 경기건마사랑`,
+    description: `경기도 ${cityName} ${guName} 전지역 25분 내 빠른 방문! 타이, 아로마, 스웨디시 24시 후불제 출장마사지.`,
+    openGraph: {
+      title: `경기도 ${cityName} ${guName} 출장마사지`,
+      description: `경기도 ${cityName} ${guName} 24시 안심 출장케어.`,
+    },
+  };
+}
+
+// ⭐️ 2. 메인 화면 컴포넌트
+export default async function GyeonggiGuPage({ params }: Props) {
+  const { district, gu } = await params;
+  const districtInfo = gyeonggiDistricts[district];
+  const guName = districtInfo?.gus?.[gu];
 
   if (!districtInfo || !guName) {
     return (
@@ -97,7 +121,7 @@ export default function GyeonggiGuClientPage({ districtKey, guKey }) {
       <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-4">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <a href="/" className="text-2xl font-bold text-amber-400">경기건마사랑 ({cityName} {guName})</a>
-          <a href={`/${districtKey}`} className="text-xs text-gray-400 hover:text-amber-400">{cityName} 전체보기 &gt;</a>
+          <a href={`/${district}`} className="text-xs text-gray-400 hover:text-amber-400">{cityName} 전체보기 &gt;</a>
         </div>
       </header>
 
