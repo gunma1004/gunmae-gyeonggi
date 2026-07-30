@@ -155,13 +155,14 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
   const currentGus = districtInfo.gus || [];
   const currentDongs = districtInfo.dongs || [];
 
+  // ⭐️ [수정 핵심] JSON-LD 스키마 구문의 띄어쓰기 및 중복 문구 정돈
   const jsonLdData = [
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": `경기도 ${currentName}출장마사지 | 경기건마사랑`,
+      "name": `경기도 ${currentName} 출장마사지 | 경기건마사랑`,
       "url": `https://gunmalove-gyeonggi.shop/${districtKey}`,
-      "description": `경기도 ${currentName}출장마사지 전문. 24시 후불제 출장케어.`
+      "description": `경기도 ${currentName} 출장마사지 전문. 24시 방문 힐링 케어 및 후불제 이용 안내.`
     }
   ];
 
@@ -183,7 +184,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
           </h1>
           <p className="text-gray-400 text-sm md:text-base mb-4">{currentName} 전지역 25분 내 빠르게 도착합니다.</p>
 
-          {/* ⭐️ 상단 클릭 가능한 구 배지 버튼 링크 */}
+          {/* 상단 클릭 가능한 구 배지 버튼 링크 */}
           {currentGus.length > 0 && (
             <div className="flex flex-wrap justify-center gap-2 my-4">
               {currentGus.map((gu) => (
@@ -235,7 +236,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
                   📞 전화 문의하기
                 </a>
                 <a
-                  href={`sms:${shop.phone}?body=${encodeURIComponent(`[${currentName}] ${shop.name} 문의드립니다.`)}`}
+                  href={`sms:${shop.phone}?body=${encodeURIComponent(`[${currentName} 출장마사지] ${shop.name} 문의드립니다.`)}`}
                   className="flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl text-xs border border-white/10 transition-colors"
                 >
                   💬 문자 예약하기
@@ -245,7 +246,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
           ))}
         </section>
 
-        {/* 하단 클릭 가능한 구 배지 링크 */}
+        {/* 하단 클릭 가능한 구/동 배지 링크 */}
         <section className="bg-[#080808] p-6 rounded-2xl border border-white/5 mt-12">
           {currentGus.length > 0 && (
             <div className="mb-6">
@@ -257,7 +258,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
                     href={`/${districtKey}/${gu.key}`}
                     className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-300 rounded-lg border border-amber-500/20 font-bold hover:bg-amber-500 hover:text-black transition-all"
                   >
-                    경기도 {currentName} {gu.name}출장마사지
+                    경기도 {currentName} {gu.name} 출장마사지
                   </a>
                 ))}
               </div>
@@ -269,7 +270,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
             <div className="flex flex-wrap gap-2">
               {currentDongs.map((dong) => (
                 <span key={dong} className="text-xs px-3 py-1.5 bg-white/5 rounded-lg text-gray-400 border border-white/5">
-                  {currentName} {dong}출장마사지
+                  {currentName} {dong} 출장마사지
                 </span>
               ))}
             </div>
@@ -280,7 +281,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
             <div className="flex flex-wrap gap-3">
               {Object.entries(gyeonggiDistricts).map(([key, data]) => (
                 <a key={key} href={`/${key}`} className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
-                  경기도 {data.name}출장마사지
+                  경기도 {data.name} 출장마사지
                 </a>
               ))}
             </div>
