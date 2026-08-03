@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-// 5개 제휴 업체 데이터
 const shops = [
   {
     id: 1,
@@ -69,7 +68,6 @@ const gyeonggiDistricts = {
   yongin: { name: '용인시' }, bucheon: { name: '부천시' }, ansan: { name: '안산시' }, anyang: { name: '안양시' }
 };
 
-// 영문 구 key를 한글 구 이름으로 변환해 주는 사전
 const guNameMap = {
   jangan: '장안구', gwonseon: '권선구', paldal: '팔달구', yeongtong: '영통구',
   sujeong: '수정구', jungwon: '중원구', bundang: '분당구',
@@ -89,8 +87,8 @@ export default async function LocationPage({ params }) {
   const locationName = guNameMap[rawLocation] ? `${guNameMap[rawLocation]}` : rawLocation;
 
   return (
-    <div className="text-gray-200 min-h-screen flex flex-col bg-[#0c0c0c] pb-20">
-      {/* 상단 헤더 (로고 이미지 추가) */}
+    <div className="bg-[#0c0c0c] text-gray-200 min-h-screen flex flex-col pb-20">
+      {/* 상단 헤더 */}
       <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-3">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <Link href={`/${districtKey}`} className="flex items-center gap-2.5">
@@ -99,54 +97,62 @@ export default async function LocationPage({ params }) {
               alt="경기건마사랑 로고" 
               className="w-9 h-9 rounded-full object-cover border border-amber-500/40"
             />
-            <span className="text-lg font-bold text-amber-400">경기건마사랑 ({cityName} {locationName})</span>
+            <span className="text-xl font-bold text-amber-400 tracking-tight">경기건마사랑 ({cityName} {locationName})</span>
           </Link>
-          <Link href="/" className="text-xs text-gray-400 hover:text-amber-400">
-            메인으로 가기 &gt;
+          <Link href="/" className="text-xs text-gray-400 hover:text-amber-400 transition-colors">
+            메인으로 &gt;
           </Link>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
-        <section className="text-center my-6">
-          {/* 타이틀 위 마사지 힐링 배너 이미지 추가 */}
-          <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+        {/* 상단 배너 이미지 */}
+        <section className="text-center my-4">
+          <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
             <img 
               src="/massage-banner.jpg" 
               alt="프리미엄 24시 출장마사지 힐링" 
-              className="w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-500"
+              className="w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-700"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-center pb-6">
+              <p className="text-white text-sm md:text-lg font-semibold tracking-wide drop-shadow-md">
+                ✨ 경기도 {cityName} {locationName} 전지역 25분 내 신속 방문
+              </p>
+            </div>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
             <span className="text-amber-400">경기도 {cityName} {locationName}</span><br />24시 출장마사지 추천
           </h1>
-          <p className="text-gray-400 text-sm md:text-base mb-4">{cityName} {locationName} 전지역 오피스텔 및 자택 25분 내 신속 방문!</p>
+          <p className="text-gray-400 text-sm md:text-base mb-6">
+            {cityName} {locationName} 전지역 오피스텔 및 자택 24시간 연중무휴 후불제 안심 케어
+          </p>
         </section>
 
-        <section className="space-y-6 mt-8">
+        {/* 제휴 업체 목록 */}
+        <section className="space-y-6">
           {shops.map((shop) => (
             <article
               key={shop.id}
-              className="bg-[#141414] border border-white/10 rounded-2xl p-5 md:p-6 shadow-lg hover:border-amber-500/40 transition-all"
+              className="bg-[#141414] border border-white/10 rounded-2xl p-5 md:p-6 shadow-xl hover:border-amber-500/50 transition-all group"
             >
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <span className="inline-block text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded mr-2">
+                  <span className="inline-block text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2.5 py-0.5 rounded-full mr-2 border border-amber-500/30">
                     {shop.badge}
                   </span>
-                  <h2 className="text-xl font-bold text-white inline-block">{shop.name}</h2>
-                  <p className="text-xs text-amber-400 mt-1">{cityName} {locationName} 및 인근 전지역</p>
+                  <h2 className="text-xl font-bold text-white inline-block group-hover:text-amber-400 transition-colors">{shop.name}</h2>
+                  <p className="text-xs text-amber-400/90 mt-1 font-medium">{cityName} {locationName} 및 인근 전지역</p>
                 </div>
               </div>
 
-              <p className="text-xs text-gray-400 mb-4">{shop.desc}</p>
+              <p className="text-xs text-gray-400 mb-4 leading-relaxed">{shop.desc}</p>
 
-              <div className="bg-black/40 rounded-xl p-3 mb-4 space-y-1.5 border border-white/5">
+              <div className="bg-black/50 rounded-xl p-3.5 mb-5 space-y-2 border border-white/5">
                 {shop.courses.map((course, idx) => (
-                  <div key={idx} className="flex justify-between text-xs">
+                  <div key={idx} className="flex justify-between text-xs items-center">
                     <span className="text-gray-300">{course.name}</span>
-                    <span className="font-bold text-amber-400">{course.price}</span>
+                    <span className="font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">{course.price}</span>
                   </div>
                 ))}
               </div>
@@ -154,13 +160,13 @@ export default async function LocationPage({ params }) {
               <div className="grid grid-cols-2 gap-3">
                 <a
                   href={`tel:${shop.phone}`}
-                  className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black font-bold py-3 rounded-xl text-xs transition-colors"
+                  className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black font-bold py-3.5 rounded-xl text-xs transition-all shadow-lg"
                 >
                   📞 전화 문의하기
                 </a>
                 <a
                   href={`sms:${shop.phone}?body=${encodeURIComponent(`[${cityName} ${locationName} 출장마사지] ${shop.name} 문의드립니다.`)}`}
-                  className="flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl text-xs border border-white/10 transition-colors"
+                  className="flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 text-white font-bold py-3.5 rounded-xl text-xs border border-white/10 transition-all"
                 >
                   💬 문자 예약하기
                 </a>
@@ -169,8 +175,8 @@ export default async function LocationPage({ params }) {
           ))}
         </section>
 
-        <section className="bg-[#080808] p-6 rounded-2xl border border-white/5 mt-12 text-center">
-          <Link href={`/${districtKey}`} className="text-xs px-4 py-2 bg-amber-500/20 text-amber-300 rounded-lg border border-amber-500/30 font-bold inline-block">
+        <section className="bg-[#111111] py-8 border border-white/10 mt-16 rounded-2xl text-center">
+          <Link href={`/${districtKey}`} className="text-xs px-4 py-2 bg-amber-500/20 text-amber-300 rounded-lg border border-amber-500/30 font-bold inline-block hover:bg-amber-500 hover:text-black transition-all">
             &lt; {cityName} 전체 지역 보기
           </Link>
         </section>

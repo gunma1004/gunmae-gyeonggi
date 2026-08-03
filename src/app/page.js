@@ -64,7 +64,7 @@ const shops = [
   }
 ];
 
-// 경기도 31개 전체 시·군·구·동 데이터 확장 반영
+// 경기도 31개 전체 시·군·구·동 데이터
 const gyeonggiDistricts = {
   suwon: { 
     name: '수원시', 
@@ -200,7 +200,7 @@ export default function GyeonggiMainPage() {
         </ul>
       </div>
 
-      {/* 상단 헤더 (로고 이미지 추가 완료) */}
+      {/* 상단 헤더 (로고 이미지) */}
       <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-3">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <a href="/" className="flex items-center gap-2.5">
@@ -211,14 +211,28 @@ export default function GyeonggiMainPage() {
             />
             <span className="text-xl font-bold text-amber-400 tracking-tight">경기건마사랑</span>
           </a>
-          <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
-            경기 전지역 24시
+          <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium">
+            🔥 24시 연중무휴 후불제
           </span>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
-        <section className="text-center my-6">
+        {/* 상단 배너 이미지 영역 */}
+        <section className="text-center my-4">
+          <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
+            <img 
+              src="/massage-banner.jpg" 
+              alt="프리미엄 24시 출장마사지 힐링" 
+              className="w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-center pb-6">
+              <p className="text-white text-sm md:text-lg font-semibold tracking-wide drop-shadow-md">
+                ✨ 경기 전지역 25분 내 신속 방문 홈타이 서비스
+              </p>
+            </div>
+          </div>
+
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
             <span className="text-amber-400">경기건마사랑</span> 제휴 업체
           </h1>
@@ -226,42 +240,44 @@ export default function GyeonggiMainPage() {
             엄선된 경기도 주요 지역 추천 업체의 코스 및 연락처를 확인하세요.
           </p>
 
-          <div className="bg-[#1e1e1e]/85 backdrop-blur-md border border-white/10 p-4 rounded-2xl max-w-sm mx-auto mb-10">
-            <div className="text-left bg-white/5 p-3 rounded-xl border border-white/5">
-              <label className="text-[10px] text-amber-400 font-bold block mb-1 uppercase">우리 동네 지역 선택하기</label>
-              <select onChange={handleDistrictChange} className="bg-transparent text-sm text-white w-full outline-none cursor-pointer" defaultValue="">
-                <option value="" disabled className="bg-[#1e1e1e]">지역을 선택해주세요</option>
+          {/* 지역 선택 드롭다운 박스 */}
+          <div className="bg-[#161616] border border-amber-500/30 p-4 rounded-2xl max-w-sm mx-auto mb-12 shadow-xl shadow-amber-500/5">
+            <div className="text-left bg-black/40 p-3 rounded-xl border border-white/5">
+              <label className="text-[11px] text-amber-400 font-bold block mb-1.5 uppercase tracking-wider">📍 우리 동네 지역 선택하기</label>
+              <select onChange={handleDistrictChange} className="bg-transparent text-sm text-white w-full outline-none cursor-pointer font-medium" defaultValue="">
+                <option value="" disabled className="bg-[#1e1e1e] text-gray-400">지역을 선택해주세요</option>
                 {Object.keys(gyeonggiDistricts).map((key) => (
-                  <option key={key} value={key} className="bg-[#1e1e1e]">{gyeonggiDistricts[key].name}</option>
+                  <option key={key} value={key} className="bg-[#1e1e1e] text-white">{gyeonggiDistricts[key].name}</option>
                 ))}
               </select>
             </div>
           </div>
         </section>
 
+        {/* 제휴 업체 목록 */}
         <section className="space-y-6">
           {shops.map((shop) => (
             <article
               key={shop.id}
-              className="bg-[#141414] border border-white/10 rounded-2xl p-5 md:p-6 shadow-lg hover:border-amber-500/40 transition-all"
+              className="bg-[#141414] border border-white/10 rounded-2xl p-5 md:p-6 shadow-xl hover:border-amber-500/50 transition-all group"
             >
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <span className="inline-block text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded mr-2">
+                  <span className="inline-block text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2.5 py-0.5 rounded-full mr-2 border border-amber-500/30">
                     {shop.badge}
                   </span>
-                  <h2 className="text-xl font-bold text-white inline-block">{shop.name}</h2>
-                  <p className="text-xs text-amber-400 mt-1">{shop.location}</p>
+                  <h2 className="text-xl font-bold text-white inline-block group-hover:text-amber-400 transition-colors">{shop.name}</h2>
+                  <p className="text-xs text-amber-400/90 mt-1 font-medium">{shop.location}</p>
                 </div>
               </div>
 
-              <p className="text-xs text-gray-400 mb-4">{shop.desc}</p>
+              <p className="text-xs text-gray-400 mb-4 leading-relaxed">{shop.desc}</p>
 
-              <div className="bg-black/40 rounded-xl p-3 mb-4 space-y-1.5 border border-white/5">
+              <div className="bg-black/50 rounded-xl p-3.5 mb-5 space-y-2 border border-white/5">
                 {shop.courses.map((course, idx) => (
-                  <div key={idx} className="flex justify-between text-xs">
+                  <div key={idx} className="flex justify-between text-xs items-center">
                     <span className="text-gray-300">{course.name}</span>
-                    <span className="font-bold text-amber-400">{course.price}</span>
+                    <span className="font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">{course.price}</span>
                   </div>
                 ))}
               </div>
@@ -269,13 +285,13 @@ export default function GyeonggiMainPage() {
               <div className="grid grid-cols-2 gap-3">
                 <a
                   href={`tel:${shop.phone}`}
-                  className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black font-bold py-3 rounded-xl text-xs transition-colors"
+                  className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black font-bold py-3.5 rounded-xl text-xs transition-all shadow-lg shadow-amber-500/10"
                 >
                   📞 전화 문의하기
                 </a>
                 <a
                   href={`sms:${shop.phone}?body=${encodeURIComponent(`${shop.name} 문의드립니다.`)}`}
-                  className="flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl text-xs border border-white/10 transition-colors"
+                  className="flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 text-white font-bold py-3.5 rounded-xl text-xs border border-white/10 transition-all"
                 >
                   💬 문자 예약하기
                 </a>
@@ -285,27 +301,27 @@ export default function GyeonggiMainPage() {
         </section>
 
         {/* 하단 전체 시·군·구 바로가기 섹션 */}
-        <section className="bg-[#080808] py-8 border-t border-white/5 mt-12 rounded-2xl p-6">
-          <h3 className="text-sm font-bold text-amber-400 mb-3">경기도 주요 행정구(區) 바로가기</h3>
+        <section className="bg-[#111111] py-8 border border-white/10 mt-16 rounded-2xl p-6 shadow-xl">
+          <h3 className="text-xs font-bold text-amber-400 mb-3 uppercase tracking-wider">⚡ 경기도 주요 행정구(區) 바로가기</h3>
           <div className="flex flex-wrap gap-2 mb-8">
             {Object.entries(gyeonggiDistricts).map(([key, data]) =>
               data.gus.map((gu) => (
                 <a
                   key={`${key}-${gu.key}`}
                   href={`/${key}/${gu.key}`}
-                  className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-300 rounded-lg border border-amber-500/20 font-bold hover:bg-amber-500/20 transition-all"
+                  className="text-xs px-3.5 py-2 bg-amber-500/10 text-amber-300 rounded-xl border border-amber-500/20 font-bold hover:bg-amber-500 hover:text-black transition-all"
                 >
-                  경기도 {data.name} {gu.name}출장마사지
+                  경기도 {data.name} {gu.name}
                 </a>
               ))
             )}
           </div>
 
-          <h3 className="text-sm font-bold text-gray-400 mb-3">경기도 전체 시·군 바로가기</h3>
-          <div className="flex flex-wrap gap-3">
+          <h3 className="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">🏙️ 경기도 전체 시·군 바로가기</h3>
+          <div className="flex flex-wrap gap-2.5">
             {Object.entries(gyeonggiDistricts).map(([id, data]) => (
-              <a key={id} href={`/${id}`} className="text-xs text-gray-400 hover:text-amber-500 transition-colors">
-                경기도 {data.name}출장마사지
+              <a key={id} href={`/${id}`} className="text-xs text-gray-400 hover:text-amber-400 bg-black/40 px-3 py-1.5 rounded-lg border border-white/5 transition-all">
+                경기도 {data.name}
               </a>
             ))}
           </div>
