@@ -1,6 +1,6 @@
 import GyeonggiDistrictClientPage from './GyeonggiDistrictClientPage';
 
-// ⭐️ 메인 페이지와 동일한 경기도 31개 전체 시·군 데이터 적용
+// 31개 전체 시·군 데이터 적용 (generateStaticParams용)
 const gyeonggiDistricts = {
   suwon: { name: '수원시' },
   seongnam: { name: '성남시' },
@@ -51,10 +51,10 @@ export async function generateMetadata({ params }) {
     title: `경기도 ${currentName}출장마사지 | 24시 홈타이·스웨디시·아로마 가격 비교`,
     description: `경기도 ${currentName}출장마사지 전문. 25분 내 방문 24시 상담 및 후불제 서비스.`,
     openGraph: {
-      url: `https://gunma-gyeonggi.com/${districtKey}`,
+      url: `https://gunmalove-gyeonggi.shop/${districtKey}`,
     },
     alternates: {
-      canonical: `https://gunma-gyeonggi.com/${districtKey}`,
+      canonical: `https://gunmalove-gyeonggi.shop/${districtKey}`,
     },
   };
 }
