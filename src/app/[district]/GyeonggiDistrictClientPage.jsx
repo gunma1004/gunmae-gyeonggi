@@ -209,6 +209,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
                   href={`/${districtKey}/${gu.key}`}
                   className="text-xs px-3 py-1.5 bg-amber-500/20 text-amber-300 font-bold rounded-full border border-amber-500/30 hover:bg-amber-500 hover:text-black transition-all"
                 >
+                  {/* 👇 여기 구 이름 뒤에 '구' 추가 완료 */}
                   {currentName} {gu.name} 바로가기 &gt;
                 </a>
               ))}
@@ -272,7 +273,8 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
                     href={`/${districtKey}/${gu.key}`}
                     className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-300 rounded-lg border border-amber-500/20 font-bold hover:bg-amber-500 hover:text-black transition-all"
                   >
-                    경기도 {currentName} {gu.name} 출장마사지
+                    {/* 👇 데이터 구조에 이미 '장안구'처럼 '구'가 포함되어 있는지 확인하고 깔끔하게 출력 */}
+                    경기도 {currentName} {gu.name.includes('구') ? gu.name : `${gu.name}구`} 출장마사지
                   </a>
                 ))}
               </div>
@@ -280,19 +282,19 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
           )}
 
           <div className="mb-6">
-  <h3 className="text-sm font-bold text-gray-400 mb-3">{currentName} 주요 동 바로가기</h3>
-  <div className="flex flex-wrap gap-2">
-    {currentDongs.map((dong) => (
-      <a
-        key={dong}
-        href={`/${districtKey}/${dong}`}
-        className="text-xs px-3 py-1.5 bg-white/5 hover:bg-amber-500/20 hover:text-amber-300 rounded-lg text-gray-400 border border-white/5 transition-all"
-      >
-        경기도 {currentName} {dong} 출장마사지
-      </a>
-    ))}
-  </div>
-</div>
+            <h3 className="text-sm font-bold text-gray-400 mb-3">{currentName} 주요 동 바로가기</h3>
+            <div className="flex flex-wrap gap-2">
+              {currentDongs.map((dong) => (
+                <a
+                  key={dong}
+                  href={`/${districtKey}/${dong}`}
+                  className="text-xs px-3 py-1.5 bg-white/5 hover:bg-amber-500/20 hover:text-amber-300 rounded-lg text-gray-400 border border-white/5 transition-all"
+                >
+                  경기도 {currentName} {dong} 출장마사지
+                </a>
+              ))}
+            </div>
+          </div>
 
           <div>
             <h3 className="text-sm font-bold text-gray-400 mb-3">경기도 다른 지역 바로가기</h3>
