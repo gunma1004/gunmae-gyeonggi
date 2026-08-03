@@ -65,7 +65,9 @@ const shops = [
 
 const gyeonggiDistricts = {
   suwon: { name: '수원시' }, seongnam: { name: '성남시' }, goyang: { name: '고양시' },
-  yongin: { name: '용인시' }, bucheon: { name: '부천시' }, ansan: { name: '안산시' }, anyang: { name: '안양시' }
+  yongin: { name: '용인시' }, bucheon: { name: '부천시' }, ansan: { name: '안산시' }, anyang: { name: '안양시' },
+  siheung: { name: '시흥시' }, hwaseong: { name: '화성시' }, pyeongtaek: { name: '평택시' },
+  uijeongbu: { name: '의정부시' }, paju: { name: '파주시' }, gimpo: { name: '김포시' }
 };
 
 const guNameMap = {
@@ -83,12 +85,12 @@ export default async function LocationPage({ params }) {
   const districtKey = resolvedParams.district;
   const rawLocation = decodeURIComponent(resolvedParams.location);
   
-  const cityName = gyeonggiDistricts[districtKey]?.name || '경기도';
-  const locationName = guNameMap[rawLocation] ? `${guNameMap[rawLocation]}` : rawLocation;
+  const cityName = gyeonggiDistricts[districtKey]?.name || '';
+  const targetLocation = guNameMap[rawLocation] || rawLocation;
+  const fullLocationName = `${cityName} ${targetLocation}`;
 
   return (
     <div className="bg-[#0c0c0c] text-gray-200 min-h-screen flex flex-col pb-20">
-      {/* 상단 헤더 */}
       <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-3">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <Link href={`/${districtKey}`} className="flex items-center gap-2.5">
@@ -97,7 +99,7 @@ export default async function LocationPage({ params }) {
               alt="경기건마사랑 로고" 
               className="w-9 h-9 rounded-full object-cover border border-amber-500/40"
             />
-            <span className="text-xl font-bold text-amber-400 tracking-tight">경기건마사랑 ({cityName} {locationName})</span>
+            <span className="text-xl font-bold text-amber-400 tracking-tight">경기건마사랑 ({fullLocationName})</span>
           </Link>
           <Link href="/" className="text-xs text-gray-400 hover:text-amber-400 transition-colors">
             메인으로 &gt;
@@ -106,30 +108,29 @@ export default async function LocationPage({ params }) {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
-        {/* 상단 배너 이미지 */}
         <section className="text-center my-4">
+          {/* 고화질 힐링 마사지 배너 이미지 링크 적용 */}
           <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
             <img 
-              src="/massage-banner.jpg" 
+              src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop" 
               alt="프리미엄 24시 출장마사지 힐링" 
               className="w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-center pb-6">
               <p className="text-white text-sm md:text-lg font-semibold tracking-wide drop-shadow-md">
-                ✨ 경기도 {cityName} {locationName} 전지역 25분 내 신속 방문
+                ✨ 경기도 {fullLocationName} 전지역 25분 내 신속 방문
               </p>
             </div>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
-            <span className="text-amber-400">경기도 {cityName} {locationName}</span><br />24시 출장마사지 추천
+            <span className="text-amber-400">경기도 {fullLocationName}</span><br />24시 출장마사지 추천
           </h1>
           <p className="text-gray-400 text-sm md:text-base mb-6">
-            {cityName} {locationName} 전지역 오피스텔 및 자택 24시간 연중무휴 후불제 안심 케어
+            {fullLocationName} 전지역 오피스텔 및 자택 24시간 연중무휴 후불제 안심 케어
           </p>
         </section>
 
-        {/* 제휴 업체 목록 */}
         <section className="space-y-6">
           {shops.map((shop) => (
             <article
@@ -142,7 +143,7 @@ export default async function LocationPage({ params }) {
                     {shop.badge}
                   </span>
                   <h2 className="text-xl font-bold text-white inline-block group-hover:text-amber-400 transition-colors">{shop.name}</h2>
-                  <p className="text-xs text-amber-400/90 mt-1 font-medium">{cityName} {locationName} 및 인근 전지역</p>
+                  <p className="text-xs text-amber-400/90 mt-1 font-medium">{fullLocationName} 및 인근 전지역</p>
                 </div>
               </div>
 
@@ -165,7 +166,7 @@ export default async function LocationPage({ params }) {
                   📞 전화 문의하기
                 </a>
                 <a
-                  href={`sms:${shop.phone}?body=${encodeURIComponent(`[${cityName} ${locationName} 출장마사지] ${shop.name} 문의드립니다.`)}`}
+                  href={`sms:${shop.phone}?body=${encodeURIComponent(`[${fullLocationName} 출장마사지] ${shop.name} 문의드립니다.`)}`}
                   className="flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 text-white font-bold py-3.5 rounded-xl text-xs border border-white/10 transition-all"
                 >
                   💬 문자 예약하기
@@ -183,7 +184,7 @@ export default async function LocationPage({ params }) {
       </main>
 
       <footer className="bg-[#080808] border-t border-white/5 py-8 text-center text-gray-500 text-xs mt-auto">
-        COPYRIGHT &copy; 경기건마사랑 {cityName} {locationName} ALL RIGHTS RESERVED.
+        COPYRIGHT &copy; 경기건마사랑 {fullLocationName} ALL RIGHTS RESERVED.
       </footer>
     </div>
   );
