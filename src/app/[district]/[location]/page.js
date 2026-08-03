@@ -69,7 +69,7 @@ const gyeonggiDistricts = {
   yongin: { name: '용인시' }, bucheon: { name: '부천시' }, ansan: { name: '안산시' }, anyang: { name: '안양시' }
 };
 
-// 영문 구 key를 한글 구 이름으로 변환해 주는 사전 (여기에 권선구 gwonseon 포함!)
+// 영문 구 key를 한글 구 이름으로 변환해 주는 사전
 const guNameMap = {
   jangan: '장안구', gwonseon: '권선구', paldal: '팔달구', yeongtong: '영통구',
   sujeong: '수정구', jungwon: '중원구', bundang: '분당구',
@@ -86,16 +86,20 @@ export default async function LocationPage({ params }) {
   const rawLocation = decodeURIComponent(resolvedParams.location);
   
   const cityName = gyeonggiDistricts[districtKey]?.name || '경기도';
-  
-  // 들어온 값이 구(key)라면 한글 구 이름으로 변환, 아니면 그냥 동 이름으로 사용
   const locationName = guNameMap[rawLocation] ? `${guNameMap[rawLocation]}` : rawLocation;
 
   return (
     <div className="text-gray-200 min-h-screen flex flex-col bg-[#0c0c0c] pb-20">
-      <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-4">
+      {/* 상단 헤더 (로고 이미지 추가) */}
+      <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-3">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <Link href={`/${districtKey}`} className="text-xl font-bold text-amber-400">
-            경기건마사랑 ({cityName} {locationName})
+          <Link href={`/${districtKey}`} className="flex items-center gap-2.5">
+            <img 
+              src="/logo.png" 
+              alt="경기건마사랑 로고" 
+              className="w-9 h-9 rounded-full object-cover border border-amber-500/40"
+            />
+            <span className="text-lg font-bold text-amber-400">경기건마사랑 ({cityName} {locationName})</span>
           </Link>
           <Link href="/" className="text-xs text-gray-400 hover:text-amber-400">
             메인으로 가기 &gt;
@@ -105,6 +109,15 @@ export default async function LocationPage({ params }) {
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
         <section className="text-center my-6">
+          {/* 타이틀 위 마사지 힐링 배너 이미지 추가 */}
+          <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+            <img 
+              src="/massage-banner.jpg" 
+              alt="프리미엄 24시 출장마사지 힐링" 
+              className="w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
             <span className="text-amber-400">경기도 {cityName} {locationName}</span><br />24시 출장마사지 추천
           </h1>
