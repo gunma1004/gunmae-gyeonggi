@@ -200,10 +200,16 @@ export default function GyeonggiMainPage() {
         </ul>
       </div>
 
-      <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-4">
+      {/* 상단 헤더 (로고 이미지 추가 완료) */}
+      <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-3">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <a href="/" className="text-2xl font-bold text-amber-400 tracking-tight">
-            경기건마사랑
+          <a href="/" className="flex items-center gap-2.5">
+            <img 
+              src="/logo.png" 
+              alt="경기건마사랑 로고" 
+              className="w-9 h-9 rounded-full object-cover border border-amber-500/40"
+            />
+            <span className="text-xl font-bold text-amber-400 tracking-tight">경기건마사랑</span>
           </a>
           <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
             경기 전지역 24시
