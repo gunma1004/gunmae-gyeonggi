@@ -64,7 +64,7 @@ const shops = [
   }
 ];
 
-// 경기도 주요 시/군/구(영문 키 매핑 포함) 및 동 데이터
+// ⭐️ 경기도 31개 전체 시·군 및 구·동 데이터 전체 반영
 const gyeonggiDistricts = {
   suwon: { 
     name: '수원시', 
@@ -133,7 +133,25 @@ const gyeonggiDistricts = {
   pyeongtaek: { name: '평택시', gus: [], dongs: ['평택동', '비전동', '서정동', '안중읍', '팽성읍'] },
   uijeongbu: { name: '의정부시', gus: [], dongs: ['의정부동', '호원동', '신곡동', '민락동', '용현동'] },
   paju: { name: '파주시', gus: [], dongs: ['운정동', '금촌동', '문산읍', '야당동', '교하동'] },
-  gimpo: { name: '김포시', gus: [], dongs: ['구래동', '장기동', '풍무동', '사우동', '운양동'] }
+  gimpo: { name: '김포시', gus: [], dongs: ['구래동', '장기동', '풍무동', '사우동', '운양동'] },
+  siheung: { name: '시흥시', gus: [], dongs: ['정왕동', '대야동', '배곧동', '목감동', '은계동'] },
+  gwangmyeong: { name: '광명시', gus: [], dongs: ['철산동', '하안동', '소하동', '광명동'] },
+  gwangju: { name: '광주시', gus: [], dongs: ['오포동', '초월읍', '퇴촌면', '경안동', '곤지암읍'] },
+  gunpo: { name: '군포시', gus: [], dongs: ['산본동', '금정동', '당동', '부곡동'] },
+  osan: { name: '오산시', gus: [], dongs: ['오산동', '궐동', '원동', '세교동'] },
+  icheon: { name: '이천시', gus: [], dongs: ['창전동', '증포동', '부발읍', '마장면'] },
+  yangju: { name: '양주시', gus: [], dongs: ['회천동', '고읍동', '옥정동', '덕계동'] },
+  guri: { name: '구리시', gus: [], dongs: ['인창동', '수택동', '토평동', '교문동'] },
+  anseong: { name: '안성시', gus: [], dongs: ['공도읍', '안성동', '대덕면', '고삼면'] },
+  pocheon: { name: '포천시', gus: [], dongs: ['소흘읍', '포천동', '선단동', '가산면'] },
+  uiwang: { name: '의왕시', gus: [], dongs: ['내손동', '부곡동', '오전동', '청계동'] },
+  hanam: { name: '하남시', gus: [], dongs: ['미사동', '풍산동', '위례동', '신장동', '덕풍동'] },
+  yeoju: { name: '여주시', gus: [], dongs: ['여흥동', '중앙동', '오학동', '가남읍'] },
+  yangpyeong: { name: '양평군', gus: [], dongs: ['양평읍', '용문면', '강상면', '서종면'] },
+  dongducheon: { name: '동두천시', gus: [], dongs: ['생연동', '보산동', '지행동', '상패동'] },
+  gapyeong: { name: '가평군', gus: [], dongs: ['가평읍', '청평면', '설악면', '조종면'] },
+  gwacheon: { name: '과천시', gus: [], dongs: ['별양동', '중앙동', '문원동', '갈현동'] },
+  yeoncheon: { name: '연천군', gus: [], dongs: ['연천읍', '전곡읍', '군남면', '청산면'] }
 };
 
 export default function GyeonggiDistrictClientPage({ districtKey }) {
@@ -155,7 +173,6 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
   const currentGus = districtInfo.gus || [];
   const currentDongs = districtInfo.dongs || [];
 
-  // ⭐️ [수정 핵심] JSON-LD 스키마 구문의 띄어쓰기 및 중복 문구 정돈
   const jsonLdData = [
     {
       "@context": "https://schema.org",
@@ -270,7 +287,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
             <div className="flex flex-wrap gap-2">
               {currentDongs.map((dong) => (
                 <span key={dong} className="text-xs px-3 py-1.5 bg-white/5 rounded-lg text-gray-400 border border-white/5">
-                  {currentName} {dong} 출장마사지
+                  경기도 {currentName} {dong} 출장마사지
                 </span>
               ))}
             </div>

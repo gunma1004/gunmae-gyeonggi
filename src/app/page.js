@@ -64,7 +64,7 @@ const shops = [
   }
 ];
 
-// ⭐️ 2. 경기도 시·군 및 행정구(區) 데이터
+// ⭐️ 2. 경기도 31개 전체 시·군 및 행정구(區) 데이터
 const gyeonggiDistricts = {
   suwon: { name: '수원시', gus: ['장안구', '권선구', '팔달구', '영통구'] },
   seongnam: { name: '성남시', gus: ['수정구', '중원구', '분당구'] },
@@ -78,7 +78,25 @@ const gyeonggiDistricts = {
   pyeongtaek: { name: '평택시', gus: [] },
   uijeongbu: { name: '의정부시', gus: [] },
   paju: { name: '파주시', gus: [] },
-  gimpo: { name: '김포시', gus: [] }
+  gimpo: { name: '김포시', gus: [] },
+  siheung: { name: '시흥시', gus: [] },
+  gwangmyeong: { name: '광명시', gus: [] },
+  gwangju: { name: '광주시', gus: [] },
+  gunpo: { name: '군포시', gus: [] },
+  osan: { name: '오산시', gus: [] },
+  icheon: { name: '이천시', gus: [] },
+  yangju: { name: '양주시', gus: [] },
+  guri: { name: '구리시', gus: [] },
+  anseong: { name: '안성시', gus: [] },
+  pocheon: { name: '포천시', gus: [] },
+  uiwang: { name: '의왕시', gus: [] },
+  hanam: { name: '하남시', gus: [] },
+  yeoju: { name: '여주시', gus: [] },
+  yangpyeong: { name: '양평군', gus: [] },
+  dongducheon: { name: '동두천시', gus: [] },
+  gapyeong: { name: '가평군', gus: [] },
+  gwacheon: { name: '과천시', gus: [] },
+  yeoncheon: { name: '연천군', gus: [] }
 };
 
 export default function GyeonggiMainPage() {
@@ -88,7 +106,7 @@ export default function GyeonggiMainPage() {
       "@type": "WebPage",
       "name": "경기건마사랑 | 경기도출장마사지",
       "url": "https://gunmalove-gyeonggi.shop/",
-      "description": "경기건마사랑 경기도출장마사지 추천. 수원, 성남, 분당, 일산, 용인 등 24시간 방문 후불제 출장마사지."
+      "description": "경기건마사랑 경기도출장마사지 추천. 수원, 성남, 분당, 일산, 용인, 화성 등 24시간 방문 후불제 출장마사지."
     }
   ];
 
@@ -212,7 +230,7 @@ export default function GyeonggiMainPage() {
           ))}
         </section>
 
-        {/* ⭐️ 메인 화면 하단: 경기도 주요 '구(區)' 전체 전면 노출 섹션 추가 */}
+        {/* ⭐️ 메인 화면 하단: 경기도 전체 31개 시·군 및 행정구(區) 전체 노출 섹션 */}
         <section className="bg-[#080808] py-8 border-t border-white/5 mt-12 rounded-2xl p-6">
           <h3 className="text-sm font-bold text-amber-400 mb-3">경기도 주요 행정구(區) 바로가기</h3>
           <div className="flex flex-wrap gap-2 mb-8">
@@ -229,7 +247,7 @@ export default function GyeonggiMainPage() {
             )}
           </div>
 
-          <h3 className="text-sm font-bold text-gray-400 mb-3">경기도 주요 도시 바로가기</h3>
+          <h3 className="text-sm font-bold text-gray-400 mb-3">경기도 전체 시·군 바로가기</h3>
           <div className="flex flex-wrap gap-3">
             {Object.entries(gyeonggiDistricts).map(([id, data]) => (
               <a key={id} href={`/${id}`} className="text-xs text-gray-400 hover:text-amber-500 transition-colors">
