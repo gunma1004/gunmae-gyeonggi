@@ -280,15 +280,19 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
           )}
 
           <div className="mb-6">
-            <h3 className="text-sm font-bold text-gray-400 mb-3">{currentName} 주요 동 바로가기</h3>
-            <div className="flex flex-wrap gap-2">
-              {currentDongs.map((dong) => (
-                <span key={dong} className="text-xs px-3 py-1.5 bg-white/5 rounded-lg text-gray-400 border border-white/5">
-                  경기도 {currentName} {dong} 출장마사지
-                </span>
-              ))}
-            </div>
-          </div>
+  <h3 className="text-sm font-bold text-gray-400 mb-3">{currentName} 주요 동 바로가기</h3>
+  <div className="flex flex-wrap gap-2">
+    {currentDongs.map((dong) => (
+      <a
+        key={dong}
+        href={`/${districtKey}/${dong}`}
+        className="text-xs px-3 py-1.5 bg-white/5 hover:bg-amber-500/20 hover:text-amber-300 rounded-lg text-gray-400 border border-white/5 transition-all"
+      >
+        경기도 {currentName} {dong} 출장마사지
+      </a>
+    ))}
+  </div>
+</div>
 
           <div>
             <h3 className="text-sm font-bold text-gray-400 mb-3">경기도 다른 지역 바로가기</h3>
