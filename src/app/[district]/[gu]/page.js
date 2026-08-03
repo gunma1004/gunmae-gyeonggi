@@ -69,7 +69,7 @@ const gyeonggiDistricts = {
   yongin: { name: '용인시' }, bucheon: { name: '부천시' }, ansan: { name: '안산시' }, anyang: { name: '안양시' }
 };
 
-// 영문 구 key를 한글 구 이름으로 변환해주는 사전
+// 👉 영문 구 key를 한글 구 이름으로 완벽하게 매핑해주는 사전
 const guNameMap = {
   jangan: '장안구', gwonseon: '권선구', paldal: '팔달구', yeongtong: '영통구',
   sujeong: '수정구', jungwon: '중원구', bundang: '분당구',
@@ -86,7 +86,7 @@ export async function generateMetadata({ params }) {
   const guKey = resolvedParams.gu;
   
   const cityName = gyeonggiDistricts[districtKey]?.name || '경기도';
-  const guName = guNameMap[guKey] || guKey;
+  const guName = guNameMap[guKey] || guKey; // 영어면 한글로 변환
 
   return {
     title: `경기도 ${cityName} ${guName} 출장마사지 | 24시 홈타이·스웨디시·아로마 추천`,
@@ -100,7 +100,7 @@ export default async function GuPage({ params }) {
   const guKey = resolvedParams.gu;
   
   const cityName = gyeonggiDistricts[districtKey]?.name || '경기도';
-  const guName = guNameMap[guKey] || guKey; // 'giheung' -> '기흥구'로 자동 변환
+  const guName = guNameMap[guKey] || guKey; // 'jangan'이 들어와도 '장안구'로 자동 변환됨
 
   return (
     <div className="text-gray-200 min-h-screen flex flex-col bg-[#0c0c0c] pb-20">
