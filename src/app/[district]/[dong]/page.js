@@ -1,6 +1,4 @@
-"use client";
-
-import { use } from 'react';
+import Link from 'next/link';
 
 // 5개 제휴 업체 데이터
 const shops = [
@@ -96,11 +94,10 @@ const gyeonggiDistricts = {
   yangpyeong: { name: '양평군', dongs: ['양평읍', '용문면', '강상면', '서종면', '지평면', '옥천면', '단월면', '양서면', '강하면'] },
   dongducheon: { name: '동두천시', dongs: ['생연동', '보산동', '지행동', '상패동', '중앙동', '송내동', '불현동', '소요동'] },
   gapyeong: { name: '가평군', dongs: ['가평읍', '청평면', '설악면', '조종면', '상면', '북면'] },
-  gwacheon: { name: '과천시', dongs: ['별양동', '중앙동', '문원동', '갈현동', '부림동', '과천동', '원문동'] },
+  gwacheon: { name: ' 과천시', dongs: ['별양동', '중앙동', '문원동', '갈현동', '부림동', '과천동', '원문동'] },
   yeoncheon: { name: '연천군', dongs: ['연천읍', '전곡읍', '군남면', '청산면', '미산면', '왕징면', '신서면', '중면', '장남면'] }
 };
 
-// Next.js 빌드 시점에 모든 시·군과 동의 조합 경로를 미리 생성해 줍니다.
 export async function generateStaticParams() {
   const paths = [];
   for (const [districtKey, data] of Object.entries(gyeonggiDistricts)) {
@@ -116,8 +113,21 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default function DongPage({ params }) {
-  const resolvedParams = use(params);
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const districtKey = resolvedParams.district;
+  const dongName = decodeURIComponent(resolvedParams.dong);
+  const districtData = gyeonggiDistricts[districtKey];
+  const cityName = districtData?.name || '경기도';
+
+  return {
+    title: `경기도 ${cityName} ${dongName}출장마사지 | 24시 홈타이·스웨디시·아로마 추천`,
+    description: `경기도 ${cityName} ${dongName} 출장마사지 전문. 25분 내 신속 방문, 24시 친절 상담 및 후불제 홈케어 서비스.`,
+  };
+}
+
+export default async function DongPage({ params }) {
+  const resolvedParams = await params;
   const districtKey = resolvedParams.district;
   const dongName = decodeURIComponent(resolvedParams.dong);
   
@@ -128,8 +138,12 @@ export default function DongPage({ params }) {
     <div className="text-gray-200 min-h-screen flex flex-col bg-[#0c0c0c] pb-20">
       <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-4">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <a href={`/${districtKey}`} className="text-xl font-bold text-amber-400">경기건마사랑 ({cityName} {dongName})</a>
-          <a href="/" className="text-xs text-gray-400 hover:text-amber-400">메인으로 가기 &gt;</a>
+          <Link href={`/${districtKey}`} className="text-xl font-bold text-amber-400">
+            경기건마사랑 ({cityName} {dongName})
+          </Link>
+          <Link href="/" className="text-xs text-gray-400 hover:text-amber-400">
+            메인으로 가기 &gt;
+          </Link>
         </div>
       </header>
 
@@ -187,9 +201,9 @@ export default function DongPage({ params }) {
         </section>
 
         <section className="bg-[#080808] p-6 rounded-2xl border border-white/5 mt-12 text-center">
-          <a href={`/${districtKey}`} className="text-xs px-4 py-2 bg-amber-500/20 text-amber-300 rounded-lg border border-amber-500/30 font-bold">
+          <Link href={`/${districtKey}`} className="text-xs px-4 py-2 bg-amber-500/20 text-amber-300 rounded-lg border border-amber-500/30 font-bold inline-block">
             &lt; {cityName} 전체 지역 보기
-          </a>
+          </Link>
         </section>
       </main>
 
