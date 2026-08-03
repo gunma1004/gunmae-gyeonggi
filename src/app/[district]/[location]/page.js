@@ -96,7 +96,7 @@ export default async function LocationPage({ params }) {
           <Link href={`/${districtKey}`} className="flex items-center gap-2.5">
             <img 
               src="/logo.png" 
-              alt="경기건마사랑 로고" 
+              alt="로고" 
               className="w-9 h-9 rounded-full object-cover border border-amber-500/40"
             />
             <span className="text-xl font-bold text-amber-400 tracking-tight">경기건마사랑 ({fullLocationName})</span>
@@ -109,12 +109,12 @@ export default async function LocationPage({ params }) {
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
         <section className="text-center my-4">
-          {/* 고화질 힐링 마사지 배너 이미지 링크 적용 */}
+          {/* 로컬 배너 이미지 경로 (/banner.jpg) */}
           <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
             <img 
-              src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop" 
-              alt="프리미엄 24시 출장마사지 힐링" 
-              className="w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-700"
+              src="/banner.jpg" 
+              alt="배너" 
+              className="w-full h-48 md:h-64 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-center pb-6">
               <p className="text-white text-sm md:text-lg font-semibold tracking-wide drop-shadow-md">
