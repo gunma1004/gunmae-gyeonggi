@@ -80,6 +80,30 @@ const guNameMap = {
   manan: '만안구', dongan: '동안구'
 };
 
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const districtKey = resolvedParams?.district;
+  const rawLocation = resolvedParams?.location ? decodeURIComponent(resolvedParams.location) : '';
+  
+  const cityName = gyeonggiDistricts[districtKey]?.name || '경기도';
+  const targetLocation = guNameMap[rawLocation] || rawLocation;
+  const fullName = targetLocation ? `${cityName} ${targetLocation}` : cityName;
+
+  return {
+    title: `경기도 ${fullName}출장마사지 | 24시 홈타이·스웨디시·아로마 후불제`,
+    description: `경기도 ${fullName} 출장마사지 추천. 오피스텔 및 자택 25분 내 신속 방문, 24시 연중무휴 후불제 홈타이 및 스웨디시 케어.`,
+    keywords: [`${fullName}출장마사지`, `${fullName}홈타이`, `${fullName}스웨디시`, `${targetLocation}마사지`, `경기건마사랑`],
+    openGraph: {
+      title: `경기도 ${fullName}출장마사지 | 24시 홈타이`,
+      description: `경기도 ${fullName} 전지역 24시 방문 후불제 출장마사지 추천.`,
+      url: `https://gunmalove-gyeonggi.shop/${districtKey}/${rawLocation}`,
+    },
+    alternates: {
+      canonical: `https://gunmalove-gyeonggi.shop/${districtKey}/${rawLocation}`,
+    },
+  };
+}
+
 export default async function LocationPage({ params }) {
   const resolvedParams = await params;
   const districtKey = resolvedParams.district;
@@ -109,7 +133,6 @@ export default async function LocationPage({ params }) {
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
         <section className="text-center my-4">
-          {/* 로컬 배너 이미지 경로 (/banner.jpg) */}
           <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
             <img 
               src="/banner.jpg" 
@@ -177,7 +200,7 @@ export default async function LocationPage({ params }) {
         </section>
 
         <section className="bg-[#111111] py-8 border border-white/10 mt-16 rounded-2xl text-center">
-          <Link href={`/${districtKey}`} className="text-xs px-4 py-2 bg-amber-500/20 text-amber-300 rounded-lg border border-amber-500/30 font-bold inline-block hover:bg-amber-500 hover:text-black transition-all">
+          <Link href={`/${districtKey}`} className="text-xs px-4 py-2 bg-amber-500/20 text-amber-300 rounded-lg border border-amber-500/30 font-bold inline-block hover:bg-amber-500/20 transition-all">
             &lt; {cityName} 전체 지역 보기
           </Link>
         </section>
