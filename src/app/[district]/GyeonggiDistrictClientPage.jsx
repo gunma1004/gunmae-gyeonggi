@@ -169,7 +169,11 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
     );
   }
 
-  const currentName = districtInfo.name;
+  // ✅ '경기도' 중복 출력 방지를 위해 정제된 이름 생성
+  const rawName = districtInfo.name || '';
+  const currentName = rawName.startsWith('경기도') ? rawName.replace('경기도', '').trim() : rawName;
+  const fullRegionName = `경기도 ${currentName}`;
+
   const currentGus = districtInfo.gus || [];
   const currentDongs = districtInfo.dongs || [];
 
@@ -177,9 +181,9 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": `경기도 ${currentName} 출장마사지 | 경기건마사랑`,
+      "name": `${fullRegionName} 출장마사지 | 경기건마사랑`,
       "url": `https://gunmalove-gyeonggi.shop/${districtKey}`,
-      "description": `경기도 ${currentName} 출장마사지 전문. 24시 방문 힐링 케어 및 후불제 이용 안내.`
+      "description": `${fullRegionName} 출장마사지 전문. 24시 방문 힐링 케어 및 후불제 이용 안내.`
     }
   ];
 
@@ -197,7 +201,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
         <section className="text-center my-6">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
-            <span className="text-amber-400">경기도 {currentName} 24시</span><br />출장마사지 추천 업체
+            <span className="text-amber-400">{fullRegionName} 24시</span><br />출장마사지 추천 업체
           </h1>
           <p className="text-gray-400 text-sm md:text-base mb-4">{currentName} 전지역 25분 내 빠르게 도착합니다.</p>
 
@@ -209,7 +213,6 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
                   href={`/${districtKey}/${gu.key}`}
                   className="text-xs px-3 py-1.5 bg-amber-500/20 text-amber-300 font-bold rounded-full border border-amber-500/30 hover:bg-amber-500 hover:text-black transition-all"
                 >
-                  {/* 👇 여기 구 이름 뒤에 '구' 추가 완료 */}
                   {currentName} {gu.name} 바로가기 &gt;
                 </a>
               ))}
@@ -273,8 +276,7 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
                     href={`/${districtKey}/${gu.key}`}
                     className="text-xs px-3 py-1.5 bg-amber-500/10 text-amber-300 rounded-lg border border-amber-500/20 font-bold hover:bg-amber-500 hover:text-black transition-all"
                   >
-                    {/* 👇 데이터 구조에 이미 '장안구'처럼 '구'가 포함되어 있는지 확인하고 깔끔하게 출력 */}
-                    경기도 {currentName} {gu.name.includes('구') ? gu.name : `${gu.name}구`} 출장마사지
+                    {fullRegionName} {gu.name.includes('구') ? gu.name : `${gu.name}구`} 출장마사지
                   </a>
                 ))}
               </div>
@@ -287,10 +289,10 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
               {currentDongs.map((dong) => (
                 <a
                   key={dong}
-                  href={`/${districtKey}/${dong}`}
+                  href={`/${districtKey}/${encodeURIComponent(dong)}`}
                   className="text-xs px-3 py-1.5 bg-white/5 hover:bg-amber-500/20 hover:text-amber-300 rounded-lg text-gray-400 border border-white/5 transition-all"
                 >
-                  경기도 {currentName} {dong} 출장마사지
+                  {fullRegionName} {dong} 출장마사지
                 </a>
               ))}
             </div>
@@ -299,11 +301,14 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
           <div>
             <h3 className="text-sm font-bold text-gray-400 mb-3">경기도 다른 지역 바로가기</h3>
             <div className="flex flex-wrap gap-3">
-              {Object.entries(gyeonggiDistricts).map(([key, data]) => (
-                <a key={key} href={`/${key}`} className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
-                  경기도 {data.name} 출장마사지
-                </a>
-              ))}
+              {Object.entries(gyeonggiDistricts).map(([key, data]) => {
+                const targetName = data.name.replace('경기도', '').trim();
+                return (
+                  <a key={key} href={`/${key}`} className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
+                    경기도 {targetName} 출장마사지
+                  </a>
+                );
+              })}
             </div>
           </div>
         </section>
