@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 const shops = [
   {
     id: 1,
@@ -82,8 +84,12 @@ const gyeonggiDistricts = {
 };
 
 export default function GyeonggiMainPage() {
+  const router = useRouter();
+
   const handleDistrictChange = (e) => {
-    if (e.target.value) window.location.href = `/${e.target.value}`;
+    if (e.target.value) {
+      router.push(`/${e.target.value}`); // ✅ Next Router를 통한 페이지 이동
+    }
   };
 
   return (
@@ -106,7 +112,6 @@ export default function GyeonggiMainPage() {
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1">
         <section className="text-center my-4">
-          {/* 로컬 배너 이미지 경로 (/banner.jpg) */}
           <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
             <img 
               src="/banner.jpg" 
@@ -129,11 +134,20 @@ export default function GyeonggiMainPage() {
 
           <div className="bg-[#161616] border border-amber-500/30 p-4 rounded-2xl max-w-sm mx-auto mb-12 shadow-xl">
             <div className="text-left bg-black/40 p-3 rounded-xl border border-white/5">
-              <label className="text-[11px] text-amber-400 font-bold block mb-1.5 uppercase tracking-wider">📍 우리 동네 지역 선택하기</label>
-              <select onChange={handleDistrictChange} className="bg-transparent text-sm text-white w-full outline-none cursor-pointer font-medium" defaultValue="">
+              <label htmlFor="district-select" className="text-[11px] text-amber-400 font-bold block mb-1.5 uppercase tracking-wider">
+                📍 우리 동네 지역 선택하기
+              </label>
+              <select 
+                id="district-select"
+                onChange={handleDistrictChange} 
+                className="bg-transparent text-sm text-white w-full outline-none cursor-pointer font-medium" 
+                defaultValue=""
+              >
                 <option value="" disabled className="bg-[#1e1e1e] text-gray-400">지역을 선택해주세요</option>
                 {Object.keys(gyeonggiDistricts).map((key) => (
-                  <option key={key} value={key} className="bg-[#1e1e1e] text-white">{gyeonggiDistricts[key].name}</option>
+                  <option key={key} value={key} className="bg-[#1e1e1e] text-white">
+                    {gyeonggiDistricts[key].name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -162,11 +176,27 @@ export default function GyeonggiMainPage() {
                 ))}
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <a href={`tel:${shop.phone}`} className="flex items-center justify-center gap-1.5 bg-amber-500 text-black font-bold py-3.5 rounded-xl text-xs">📞 전화 문의하기</a>
-                <a href={`sms:${shop.phone}?body=${encodeURIComponent(`${shop.name} 문의드립니다.`)}`} className="flex items-center justify-center gap-1.5 bg-white/5 text-white font-bold py-3.5 rounded-xl text-xs border border-white/10">💬 문자 예약하기</a>
+                <a href={`tel:${shop.phone}`} className="flex items-center justify-center gap-1.5 bg-amber-500 text-black font-bold py-3.5 rounded-xl text-xs hover:bg-amber-400 transition-colors">📞 전화 문의하기</a>
+                <a href={`sms:${shop.phone}?body=${encodeURIComponent(`${shop.name} 문의드립니다.`)}`} className="flex items-center justify-center gap-1.5 bg-white/5 text-white font-bold py-3.5 rounded-xl text-xs border border-white/10 hover:bg-white/10 transition-colors">💬 문자 예약하기</a>
               </div>
             </article>
           ))}
+        </section>
+
+        {/* ✅ SEO 및 빠른 네비게이션을 위한 하단 경기도 지역 태그 모음 추가 */}
+        <section className="bg-[#080808] p-6 rounded-2xl border border-white/5 mt-16">
+          <h3 className="text-sm font-bold text-amber-400 mb-3">경기도 지역별 바로가기</h3>
+          <div className="flex flex-wrap gap-2.5">
+            {Object.entries(gyeonggiDistricts).map(([key, data]) => (
+              <a
+                key={key}
+                href={`/${key}`}
+                className="text-xs px-3 py-1.5 bg-white/5 hover:bg-amber-500/20 hover:text-amber-300 rounded-lg text-gray-400 border border-white/5 transition-all"
+              >
+                경기도 {data.name} 출장마사지
+              </a>
+            ))}
+          </div>
         </section>
       </main>
 
