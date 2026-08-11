@@ -1,9 +1,10 @@
 "use client";
-import Image from 'next/image'; // 👈 맨 위에 추가!
+
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-// --- 데이터 정의 ---
+// --- 카테고리 탭 정의 ---
 const categoryTabs = [
   { id: "services", label: "서비스" },
   { id: "prices", label: "가격안내" },
@@ -14,12 +15,13 @@ const categoryTabs = [
   { id: "reviews", label: "후기" },
 ];
 
+// --- 5개 전체 제휴 업체 데이터 ---
 const shops = [
   {
     id: 1,
     name: "한국미인홈케어",
-    location: "경기 전지역 (수원/성남/용인 중심)",
-    desc: "24시 정성 가득한 타이 & 아로마 전문 힐링 케어",
+    location: "경기 전지역",
+    desc: "24시 정성 가득한 타이 & 아로마 전문 케어",
     phone: "0507-1280-3324",
     badge: "추천업체",
     rating: 4.9,
@@ -32,7 +34,7 @@ const shops = [
   {
     id: 2,
     name: "기쁨홈타이",
-    location: "경기 전지역 (고양/부천/안산 중심)",
+    location: "경기 전지역",
     desc: "지친 일상에 편안한 휴식을 선사하는 프리미엄 힐링샵",
     phone: "0507-1280-3325",
     badge: "인기폭발",
@@ -41,6 +43,48 @@ const shops = [
     courses: [
       { name: "건식 코스 (60분)", price: "60,000원" },
       { name: "스웨디시 (60분)", price: "140,000원" },
+    ]
+  },
+  {
+    id: 3,
+    name: "어린마인드홈타이",
+    location: "경기 전지역",
+    desc: "빠른 방문과 철저한 위생 관리를 약속드립니다",
+    phone: "0507-1280-3326",
+    badge: "24시상시",
+    rating: 4.7,
+    reviewCount: 82,
+    courses: [
+      { name: "타이/아로마 (60분)", price: "60,000원" },
+      { name: "한국 스웨디시케어 (60분)", price: "140,000원" },
+    ]
+  },
+  {
+    id: 4,
+    name: "미인클럽홈타이",
+    location: "경기 전지역",
+    desc: "베테랑 관리사의 맞춤형 피로 회복 케어 프로그램",
+    phone: "0507-1280-3327",
+    badge: "신규제휴",
+    rating: 4.9,
+    reviewCount: 110,
+    courses: [
+      { name: "타이코스 (60분)", price: "60,000원" },
+      { name: "한국스웨디시 (90분)", price: "140,000원" },
+    ]
+  },
+  {
+    id: 5,
+    name: "퀸즈 홈테라피",
+    location: "경기 전지역",
+    desc: "후불제 안심 이용, 경기 전지역 25분 내 빠른 도착",
+    phone: "0507-1280-3328",
+    badge: "만족도1위",
+    rating: 5.0,
+    reviewCount: 154,
+    courses: [
+      { name: "타이 코스 (60분)", price: "60,000원" },
+      { name: "스웨디시 코스 (60분)", price: "140,000원" },
     ]
   }
 ];
@@ -100,9 +144,11 @@ export default function GyeonggiMainPage() {
       <header className="sticky top-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-md border-b border-white/10 px-4 py-3">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <a href="/" className="flex items-center gap-2.5">
-            <img 
+            <Image 
               src="/logo.png" 
               alt="경기건마사랑 로고" 
+              width={36}
+              height={36}
               className="w-9 h-9 rounded-full object-cover border border-amber-500/40"
             />
             <span className="text-xl font-bold text-amber-400">경기건마사랑</span>
@@ -113,7 +159,7 @@ export default function GyeonggiMainPage() {
         </div>
       </header>
 
-      {/* 2. 카테고리 네비게이션 탭 (CTR & UX 향상) */}
+      {/* 2. 카테고리 네비게이션 탭 */}
       <nav className="sticky top-[61px] z-40 bg-[#121212] border-b border-white/10 px-4 py-2 overflow-x-auto no-scrollbar">
         <div className="max-w-4xl mx-auto flex gap-2 whitespace-nowrap">
           {categoryTabs.map((tab) => (
@@ -137,9 +183,12 @@ export default function GyeonggiMainPage() {
         {/* 메인 히어로 & 검색 */}
         <section className="text-center">
           <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
-            <img 
+            <Image 
               src="/banner.jpg" 
               alt="경기건마사랑 대표 배너" 
+              width={800}
+              height={300}
+              priority
               className="w-full h-48 md:h-64 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end justify-center pb-6 px-4">
@@ -179,7 +228,7 @@ export default function GyeonggiMainPage() {
           </div>
         </section>
 
-        {/* --- 섹션 1: 서비스 & 제휴업체 목록 --- */}
+        {/* --- 섹션 1: 서비스 & 제휴업체 목록 (5개 전체 노출) --- */}
         <section id="services" className="scroll-mt-28">
           <div className="flex justify-between items-end mb-4 border-b border-white/10 pb-2">
             <div>
@@ -258,7 +307,7 @@ export default function GyeonggiMainPage() {
           </div>
         </section>
 
-        {/* --- 섹션 3: 경기 여행 가이드 (SEO 강화) --- */}
+        {/* --- 섹션 3: 경기 여행 가이드 --- */}
         <section id="travel" className="scroll-mt-28">
           <h2 className="text-lg font-bold text-white mb-1">🌲 경기 힐링 여행 명소</h2>
           <p className="text-xs text-gray-400 mb-4">경기도 추천 명소 둘러보고 피로 완벽 해소하기</p>
@@ -290,7 +339,7 @@ export default function GyeonggiMainPage() {
           </div>
         </section>
 
-        {/* --- 섹션 5: 지역 안내 (네비게이션 링크) --- */}
+        {/* --- 섹션 5: 지역 안내 --- */}
         <section id="districts" className="scroll-mt-28 bg-[#080808] p-5 rounded-2xl border border-white/5">
           <h2 className="text-sm font-bold text-amber-400 mb-1">📍 경기도 지역별 바로가기</h2>
           <p className="text-xs text-gray-500 mb-4">원하시는 지역을 클릭하시면 해당 지역 정보 페이지로 이동합니다.</p>
@@ -307,7 +356,7 @@ export default function GyeonggiMainPage() {
           </div>
         </section>
 
-        {/* --- 섹션 6: Q&A (FAQ) --- */}
+        {/* --- 섹션 6: Q&A --- */}
         <section id="qa" className="scroll-mt-28">
           <h2 className="text-lg font-bold text-white mb-1">❓ 자주 묻는 질문 (Q&A)</h2>
           <p className="text-xs text-gray-400 mb-4">고객님들이 가장 자주 물어보시는 질문들을 모았습니다.</p>
