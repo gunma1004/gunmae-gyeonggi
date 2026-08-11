@@ -182,22 +182,40 @@ export default function GyeonggiDistrictClientPage({ districtKey }) {
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-16">
         
-        {/* 히어로 */}
-        <section className="text-center">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-3">
-            <span className="text-amber-400">{fullRegionName} 24시</span> 출장마사지 추천
-          </h1>
-          <p className="text-gray-400 text-xs md:text-sm mb-4">{currentName} 전지역 오피스텔/자택 25분 내 빠른 방문 후불제 케어</p>
+       {/* 히어로 & 대표 배너 */}
+<section className="text-center">
+  <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl relative">
+    <Image 
+      src="/banner.jpg" 
+      alt={`${currentName} 대표 배너`} 
+      width={800}
+      height={300}
+      priority
+      className="w-full h-48 md:h-64 object-cover"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end justify-center pb-6 px-4">
+      <p className="text-white text-sm md:text-lg font-semibold tracking-wide drop-shadow-md">
+        ✨ {fullRegionName} 전지역 25분 내 신속 방문
+      </p>
+    </div>
+  </div>
 
-          {/* 주요 동(洞) 키워드 텍스트 태그 (링크 없이 SEO 수집용으로 노출) */}
-          <div className="flex flex-wrap justify-center gap-1.5 my-4 max-w-2xl mx-auto">
-            {currentDongs.map((dong) => (
-              <span key={dong} className="text-[11px] px-2.5 py-1 bg-white/5 text-amber-400/90 rounded-md border border-white/5">
-                #{currentName} {dong}
-              </span>
-            ))}
-          </div>
-        </section>
+  <h1 className="text-2xl md:text-4xl font-bold text-white mb-3">
+    <span className="text-amber-400">{fullRegionName} 24시</span> 출장 마사지 추천
+  </h1>
+  <p className="text-gray-400 text-xs md:text-sm mb-4">
+    {currentName} 전지역 오피스텔/자택 25분 내 빠른 방문 후불제 케어
+  </p>
+
+  {/* 주요 동(洞) 키워드 텍스트 태그 */}
+  <div className="flex flex-wrap justify-center gap-1.5 my-4 max-w-2xl mx-auto">
+    {currentDongs.map((dong) => (
+      <span key={dong} className="text-[11px] px-2.5 py-1 bg-white/5 text-amber-400/90 rounded-md border border-white/5">
+        #{currentName} {dong}
+      </span>
+    ))}
+  </div>
+</section>
 
         {/* --- 섹션 1: 서비스 & 제휴업체 --- */}
         <section id="services" className="scroll-mt-28">
