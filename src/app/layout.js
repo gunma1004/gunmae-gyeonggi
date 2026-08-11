@@ -7,11 +7,15 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
+  
+  // ⭐️ [구글 & 네이버 소유권 확인 태그 등록 위치]
   verification: {
+    google: "b-SnjamLFNpuMBBoTGV6Lkz2Kwuo4inDkg8cXgSoEc8",
     other: {
-      'naver-site-verification': '7ddc82035572a78ce341bc1e4a6423ef5d952d4a',
+      "naver-site-verification": "3c91e71d17b686b3f17004797260499462999621",
     },
   },
+
   openGraph: {
     title: "경기건마사랑 | 24시 경기도 출장 마사지",
     description: "경기도 전지역 25분 방문! 프리미엄 100% 후불제 출장 마사지 서비스.",
@@ -23,7 +27,6 @@ export const metadata = {
   keywords: ["경기도 출장 마사지", "수원 출장 마사지", "성남 출장 마사지", "분당 홈타이", "경기도 스웨디시", "경기건마사랑"],
 };
 
-// ⭐️ 가장 핵심: export default RootLayout 컴포넌트 형태가 정상이어야 합니다.
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
